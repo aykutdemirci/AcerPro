@@ -1,0 +1,72 @@
+﻿@model AcerPro.Dto.ViewModels.ApplicationViewModel
+@{
+    ViewBag.Title = "Home Page";
+    var applications = (List<AcerPro.Dto.ViewModels.ApplicationViewModel>)ViewBag.Applications;
+}
+
+<link href="~/Content/home.css" rel="stylesheet" />
+@*<link href="https://cdn.datatables.net/v/dt/dt-1.13.2/datatables.min.css" />*@
+<main>
+
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            <table id="tbl_applications" class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Url</th>
+                        <th>Trace Interval</th>
+                        <th>Current Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (applications != null)
+                    {
+                        foreach (var app in applications)
+                        {
+                            <tr id="@app.Id">
+                                <td>@app.Name</td>
+                                <td class="app-url">@app.Url</td>
+                                <td class="interval">@app.TraceInterval</td>
+                                <td class="status">waiting</td>
+                                <td>
+                                    <div class="btn-group">
+                                        @Html.ActionLink("Update", "ApplicationView", "Home", routeValues: new { id = app.Id }, htmlAttributes: new { @class = "btn btn-primary text-white" })
+                                        @Html.ActionLink("Delete", "DeleteApplication", "Home", routeValues: new { id = app.Id }, htmlAttributes: new { @class = "btn btn-danger text-white" })
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            @using (Html.BeginForm("AddApplication", "Home", FormMethod.Post, htmlAttributes: new { @class = "w-100" }))
+            {
+                <div class="input-group">
+
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Name" })
+
+                    @Html.TextBoxFor(m => m.Url, new { @class = "form-control", @placeholder = "Application url" })
+
+                    @Html.TextBoxFor(m => m.TraceInterval, new { @type = "number", @class = "form-control", @placeholder = "Interval in seconds" })
+
+                    <button class="btn btn-outline-secondary" type="submit">Add</button>
+                </div>
+            }
+
+        </div>
+        <div class="col-12 mt-1">
+            @Html.ValidationSummary(excludePropertyErrors: false, message: "", new { @class = "text-danger" })
+        </div>
+    </div>
+</main>
+@section scripts{
+    @*<script src="https://cdn.datatables.net/v/dt/dt-1.13.2/datatables.min.js"></script>*@
+    <script src="~/Scripts/index.js"></script>
+}

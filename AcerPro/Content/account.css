@@ -1,0 +1,12 @@
+﻿html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+.form-container {
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}

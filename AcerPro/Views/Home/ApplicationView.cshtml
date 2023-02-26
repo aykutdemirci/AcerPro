@@ -1,0 +1,26 @@
+﻿@model AcerPro.Dto.ViewModels.ApplicationViewModel
+<main>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center">
+            @using (Html.BeginForm("UpdateApplication", "Home", FormMethod.Post, htmlAttributes: new { @class = "w-100" }))
+            {
+                <div class="input-group">
+
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Name" })
+
+                    @Html.TextBoxFor(m => m.Url, new { @class = "form-control", @placeholder = "Application url" })
+
+                    @Html.TextBoxFor(m => m.TraceInterval, new { @type = "number", @class = "form-control", @placeholder = "Interval in seconds" })
+
+                    @Html.HiddenFor(m => m.Id)
+
+                    <button class="btn btn-primary" type="submit">Update</button>
+                </div>
+            }
+
+        </div>
+        <div class="col-12 mt-1">
+            @Html.ValidationSummary(excludePropertyErrors: false, message: "", new { @class = "text-danger" })
+        </div>
+    </div>
+</main>

@@ -1,0 +1,55 @@
+﻿@model AcerPro.Models.LoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/account.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="d-flex justify-content-center flex-nowrap">
+        <div class="form-container">
+            <div class="card">
+                <div class="card-header text-center">LOGIN</div>
+                <div class="card-body">
+                    @{
+                        using (Html.BeginForm("Login", "Account"))
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email)
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Enter email" })
+                            </div>
+                            <div class="form-group mt-2">
+                                @Html.LabelFor(m => m.Password)
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Enter password" })
+                            </div>
+                            <div class="form-check mt-2">
+                                @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input" })
+                                @Html.LabelFor(m => m.RememberMe, new { @class = "form-check-label" })
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="card-footer text-muted">
+                    @Html.ValidationSummary(excludePropertyErrors: false, message: "", new { @class = "text-danger" })
+                    <p class="text-end">Don't you have an account. Please @Html.ActionLink("register", "RegisterView", "Account")</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+</html>
